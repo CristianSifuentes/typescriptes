@@ -34,6 +34,8 @@ import { runBroken as broken08 } from "../03-advanced/08-structural-typing.js-br
 import { runSafe as safe08 } from "../03-advanced/08-structural-typing.ts-safe.js";
 import { runBroken as broken09 } from "../03-advanced/09-excess-property-subtlety.js-broken.js";
 import { runSafe as safe09 } from "../03-advanced/09-excess-property-subtlety.ts-safe.js";
+import { runBroken as broken10 } from "../03-advanced/10-keyof.js-broken.js";
+import { runSafe as safe10 } from "../03-advanced/10-keyof.ts-safe.js";
 
 export type Level = "01-basic" | "02-intermediate" | "03-advanced" | "04-expert";
 
@@ -130,6 +132,15 @@ export const demos: readonly Demo[] = [
     codes: ["TS2561"],
     broken: broken09,
     safe: safe09,
+  },
+  {
+    id: "10-keyof",
+    level: "03-advanced",
+    title: "keyof turns property names into a checkable union",
+    feature: "keyof T computes the literal-key union; indexed access types T[K] track it exactly",
+    codes: ["TS2345", "TS2322"],
+    broken: broken10,
+    safe: safe10,
   },
 ];
 
