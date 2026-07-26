@@ -41,6 +41,8 @@ import { runSafe as safe11 } from "../03-advanced/11-mapped-template-keys.ts-saf
 
 import { runBroken as broken12 } from "../04-expert/12-resolution-model.js-broken.js";
 import { runSafe as safe12 } from "../04-expert/12-resolution-model.ts-safe.js";
+import { runBroken as broken13 } from "../04-expert/13-soundness-limits.js-broken.js";
+import { runSafe as safe13 } from "../04-expert/13-soundness-limits.ts-safe.js";
 
 export type Level = "01-basic" | "02-intermediate" | "03-advanced" | "04-expert";
 
@@ -164,6 +166,15 @@ export const demos: readonly Demo[] = [
     codes: ["TS2551"],
     broken: broken12,
     safe: safe12,
+  },
+  {
+    id: "13-soundness-limits",
+    level: "04-expert",
+    title: "The limits of soundness",
+    feature: "any, as, as-unknown-as-T, and dynamic keys — where the declared shape stops matching reality",
+    codes: ["TS2352", "TS7053"],
+    broken: broken13,
+    safe: safe13,
   },
 ];
 

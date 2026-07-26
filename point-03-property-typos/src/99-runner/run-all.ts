@@ -26,11 +26,14 @@ const DIAGNOSTIC_GLOSSARY: readonly (readonly [code: string, meaning: string])[]
   ["TS18048", "Value is possibly 'undefined' — an optional property used unguarded"],
   ["TS2375", "Optional property given an explicit 'undefined' (exactOptionalPropertyTypes)"],
   ["TS2540", "Cannot assign to a read-only property"],
+  ["TS4111", "Property comes from an index signature; must be accessed with bracket notation"],
+  ["TS2353", "Object literal may only specify known properties (freshness, no suggestion available)"],
   ["TS7053", "Element implicitly has an 'any' type — indexing with a non-literal string key"],
   ["TS2322", "Type 'X' is not assignable to type 'Y' — the core assignability failure"],
   ["TS2345", "Argument is not assignable to parameter — includes exhaustiveness over keyof T"],
   ["TS2344", "Type does not satisfy the constraint — a type-level assertion failed"],
   ["TS2352", "Neither type sufficiently overlaps — an 'as' assertion the compiler doubts"],
+  ["TS2578", "Unused '@ts-expect-error' directive — the expected error stopped occurring"],
 ];
 
 function finalReport(): void {
