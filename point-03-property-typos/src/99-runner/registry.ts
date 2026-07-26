@@ -36,6 +36,8 @@ import { runBroken as broken09 } from "../03-advanced/09-excess-property-subtlet
 import { runSafe as safe09 } from "../03-advanced/09-excess-property-subtlety.ts-safe.js";
 import { runBroken as broken10 } from "../03-advanced/10-keyof.js-broken.js";
 import { runSafe as safe10 } from "../03-advanced/10-keyof.ts-safe.js";
+import { runBroken as broken11 } from "../03-advanced/11-mapped-template-keys.js-broken.js";
+import { runSafe as safe11 } from "../03-advanced/11-mapped-template-keys.ts-safe.js";
 
 export type Level = "01-basic" | "02-intermediate" | "03-advanced" | "04-expert";
 
@@ -141,6 +143,15 @@ export const demos: readonly Demo[] = [
     codes: ["TS2345", "TS2322"],
     broken: broken10,
     safe: safe10,
+  },
+  {
+    id: "11-mapped-template-keys",
+    level: "03-advanced",
+    title: "Mapped and template-literal property names",
+    feature: "keys GENERATED via `get${Capitalize<K>}` form a real, checkable property map",
+    codes: ["TS2561"],
+    broken: broken11,
+    safe: safe11,
   },
 ];
 
