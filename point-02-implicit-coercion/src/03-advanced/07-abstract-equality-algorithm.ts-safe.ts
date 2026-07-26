@@ -116,12 +116,12 @@ export function runSafe(): void {
   const statusLabel = "yes";
 
   ts('typedLooseEquals(isVerified, statusLabel)');
-  // @ts-expect-error TS2345: Argument of type 'never' is not assignable to parameter of
-  // type 'boolean' — the witness tuple has no member a boolean/string pair can supply.
+  // @ts-expect-error TS2554: Expected 3 arguments, but got 2 — the witness tuple has no
+  // member a boolean/string pair can supply, so it becomes a mandatory 3rd argument.
   typedLooseEquals(isVerified, statusLabel);
   compilerSays(
-    "TS2345",
-    "Argument of type 'never' is not assignable to parameter of type 'boolean'.",
+    "TS2554",
+    "Expected 3 arguments, but got 2.",
     "`boolean` and `string` share no common member as TYPES (even though " +
       "`true == \"yes\"` would run a real ToNumber coercion at runtime), so " +
       "`Overlaps` resolves to `false` and the trailing witness parameter " +

@@ -57,7 +57,7 @@ required `[never]` tuple — a type no expression can construct — so the call
 itself fails to compile:
 
 ```
-error TS2345: Argument of type 'never' is not assignable to parameter of type 'boolean'.
+error TS2554: Expected 3 arguments, but got 2.
 ```
 
 This is the same shape of proof `type-assert.ts`'s `proveType` uses (see
@@ -76,7 +76,7 @@ rather than a compiler black box.
 |---|---|---|
 | `1 == "1"` | number/string branch → `ToNumber("1")` → `1 == 1` → `true` | rejected by native `==` (**TS2367**, demo 04) |
 | `typedLooseEquals(1, 1)` | same-type branch, no coercion | compiles — types overlap |
-| `typedLooseEquals(true, "yes")` | boolean branch → `ToNumber` → number/string branch | **TS2345** — witness tuple unsatisfiable |
+| `typedLooseEquals(true, "yes")` | boolean branch → `ToNumber` → number/string branch | **TS2554** — witness tuple unsatisfiable |
 | `"1" === 1` | branch 1 only: different types → `false` | rejected (**TS2367** — applies to `===` too) |
 | `null === undefined` | branch 1 only: different types → `false` | compiles — null/undefined are exempt |
 
@@ -99,6 +99,6 @@ the running program can tell you whether they're actually equal.
 ## Verify
 
 ```bash
-npm run evidence                                # see TS2345/TS2367 emitted for real
+npm run evidence                                # see TS2554/TS2367 emitted for real
 npm run demo:07-abstract-equality-algorithm
 ```
