@@ -1,27 +1,32 @@
 # typescriptes
 
-List of problems in JavaScript that TypeScript solves.
+**Every defect JavaScript lets you ship, and the TypeScript mechanism that stops it.**
 
-**A 30-point series** — each point a self-contained, executable, granular
-dissection rather than a blog post.
+A 29-point series, one problem at a time, each shipped as its own
+self-contained, executable dissection — not a blog post, not a slide deck.
+Every point lives in its own folder **and** its own branch, so the history of
+the repo *is* the syllabus.
 
 Every point is built to the same standard:
 
 - **Scientist** — no claim about compiler behaviour without the real `tsc`
   output or the mechanism that produces it.
 - **Expert** — correct terminology (soundness, narrowing, erasure, variance,
-  control flow graph), defined the first time it appears.
-- **Artist** — the invisible made visible: console traces of what the compiler
-  believes at each line, before/after tables, and a concept map per point.
+  discriminated union), defined the first time it appears.
+- **Artist** — the invisible made visible: console traces of what the
+  compiler believes at each line, before/after tables, and a concept map per
+  point.
 
 ---
 
 ## Status
 
-| # | point | status |
-|---|---|---|
-| 01 | [Type errors at runtime vs compile time](./point-01-type-errors/) | ✅ **complete** — 15 demos, 4 levels, evidence lab |
-| 02–30 | see the table of contents below | 🚧 planned |
+| | |
+|---|---|
+| **Points** | 29 |
+| **Levels** | 7 |
+| **Format** | one npm project per point, one branch per point |
+| **Progress** | 1 / 29 complete |
 
 ```bash
 cd point-01-type-errors
@@ -32,71 +37,142 @@ npm run evidence      # real tsc diagnostics, unsuppressed
 
 ---
 
-## Table of contents — the 30 points
+## The idea in one sentence
 
-Each row is a **class of JavaScript defect**, the **TypeScript mechanism** that
-eliminates it, and the level at which the series treats it. The ordering is
-deliberate: each point assumes only the points before it.
+> Every entry below is a **JavaScript failure mode** on the left and the
+> **TypeScript feature that closes it** on the right. Nothing is abstract —
+> each row becomes a folder (`point-NN-slug/`) and a branch
+> (`feature/point-NN-slug`) with runnable, broken-vs-fixed code.
 
-### Part I — The core claim (points 01–05)
+```mermaid
+flowchart LR
+    subgraph L1["Level 1 - Basic type errors"]
+        direction TB
+        n1[runtime crashes] --> n2[static checking]
+    end
+    subgraph L2["Level 2 - Structure and contracts"]
+        direction TB
+        n3[undocumented shapes] --> n4[interface / type]
+    end
+    subgraph L3["Level 3 - The null problem"]
+        direction TB
+        n5[uncontrolled null] --> n6[strictNullChecks]
+    end
+    subgraph L4["Level 4 - Domain modeling"]
+        direction TB
+        n7[magic strings] --> n8[unions and branded types]
+    end
+    subgraph L5["Level 5 - Reuse"]
+        direction TB
+        n9[duplicated logic] --> n10[generics]
+    end
+    subgraph L6["Level 6 - Boundaries"]
+        direction TB
+        n11[unvalidated I/O] --> n12[runtime plus static validation]
+    end
+    subgraph L7["Level 7 - Advanced type system"]
+        direction TB
+        n13[types as documentation] --> n14[types as computation]
+    end
 
-| # | Point | The JavaScript problem | The TypeScript answer |
-|---|---|---|---|
-| **01** | **Type errors at runtime → compile time** | a defect is discovered by a user, on one input, in production | static checking over all executions; erasure; `never`; the soundness holes |
-| 02 | Implicit coercion, `==`, and truthiness | `"5" - 3`, `0 \|\| default`, `if ("false")` | operator operand rules, literal types, `??`, `!== undefined` |
-| 03 | `undefined is not a function` | prototype-chain lookup fails at call time | static member resolution; `unknown`; optional chaining |
-| 04 | Null and undefined — the billion-dollar mistake | every value is secretly nullable | `strictNullChecks`, narrowing, `NonNullable`, `?.` and `??` |
-| 05 | Function contracts | arity, argument order, and return types are suggestions | signatures, overloads, optional/rest params, branded parameters |
+    L1 --> L2 --> L3 --> L4 --> L5 --> L6 --> L7
+```
 
-### Part II — Shapes and data (points 06–10)
+Each level assumes only the levels before it — this is a ladder, not a menu.
 
-| # | Point | The JavaScript problem | The TypeScript answer |
-|---|---|---|---|
-| 06 | Object shape drift | a renamed field breaks callers silently | `interface`/`type`, structural typing, freshness, `Omit`/`Pick` |
-| 07 | Arrays, tuples, and heterogeneous data | one stray element changes a fold's meaning | element types, tuples, `readonly`, `noUncheckedIndexedAccess` |
-| 08 | Magic strings and enums | `"activ"` compiles, ships, and matches nothing | literal types, `as const`, unions vs `enum`, exhaustive `Record` |
-| 09 | Unhandled states | a new case makes every `switch` silently return `undefined` | discriminated unions, `never`, `assertNever`, exhaustive `match` |
-| 10 | Immutability and accidental mutation | a shared object is mutated three modules away | `readonly`, `as const`, `Readonly<T>`, and where they stop working |
+---
 
-### Part III — The runtime model (points 11–15)
+## Table of contents — 7 levels, 29 points
 
-| # | Point | The JavaScript problem | The TypeScript answer |
-|---|---|---|---|
-| 11 | `this`, bound and unbound | an extracted method loses its receiver | `ThisParameterType`, `noImplicitThis`, `strictBindCallApply`, arrow semantics |
-| 12 | Classes, visibility, and initialization | `_private` is a naming convention; fields may be `undefined` | `private`/`#`, `abstract`, `override`, `strictPropertyInitialization` |
-| 13 | Asynchrony and promises | a forgotten `await` silently yields a `Promise` | `Promise<T>` inference, `await` typing, floating-promise detection, typed rejections |
-| 14 | Iterators, generators, async iteration | protocol conformance is checked by crashing | `Iterable<T>`, `AsyncIterable<T>`, generator yield/return/next types |
-| 15 | Modules and interop | a wrong import path fails at load time | module resolution, `verbatimModuleSyntax`, ESM/CJS interop, circular imports |
+Columns: the **JavaScript problem**, the **TypeScript answer**, the **folder /
+branch** where the example lives, and its **status**.
 
-### Part IV — The boundary (points 16–20)
+### Level 1 — Basic type errors
 
-| # | Point | The JavaScript problem | The TypeScript answer |
-|---|---|---|---|
-| 16 | Untyped external data | `JSON.parse` returns whatever it likes | `unknown`, type guards, schema validation, parse-don't-validate |
-| 17 | Configuration and environment | every `process.env` value is a string or missing | typed config objects, boundary parsing, `satisfies` |
-| 18 | HTTP and API contracts | request/response shapes live in documentation | typed clients, types generated from OpenAPI/GraphQL, end-to-end inference |
-| 19 | Databases and persistence | a row is `any` the moment it leaves the driver | typed query builders, generated row types, branded IDs |
-| 20 | Errors as values | `catch (e)` gives you something; nobody knows what | `useUnknownInCatchVariables`, typed error unions, `Result<T, E>` |
+| # | JavaScript problem | TypeScript answer | Folder / branch | Status |
+|---|---|---|---|---|
+| 01 | Type errors discovered at runtime | Static typing that catches them as you write | [`point-01-type-errors`](./point-01-type-errors/) · `feature/point-01-type-errors` | **complete** — 15 demos, 4 levels, evidence lab |
+| 02 | Implicit coercion (`"5" + 3 === "53"`) | TS blocks the invalid operation before it runs | `point-02-implicit-coercion` · `feature/point-02-implicit-coercion` | planned |
+| 03 | Typos in property names | Autocomplete and verification of the object's shape | `point-03-property-typos` · `feature/point-03-property-typos` | planned |
+| 04 | `undefined is not a function` | Verification that the method exists before it is called | `point-04-undefined-not-a-function` · `feature/point-04-undefined-not-a-function` | planned |
+| 05 | Too many or too few function parameters | Mandatory function signatures | `point-05-function-arity` · `feature/point-05-function-arity` | planned |
+| 06 | Arguments passed in the wrong order | Distinct types per position | `point-06-argument-order` · `feature/point-06-argument-order` | planned |
 
-### Part V — The type system as a language (points 21–25)
+### Level 2 — Structure and contracts
 
-| # | Point | The JavaScript problem | The TypeScript answer |
-|---|---|---|---|
-| 21 | Reuse without `any` | generic code is written by giving up on types | generics, constraints, inference sites, variance |
-| 22 | Higher-order functions | `compose`, `pipe`, and curried helpers lose all type information | generic inference, tuple types, variadic type parameters |
-| 23 | Transforming types | shapes are duplicated by hand and drift apart | mapped types, key remapping, `Partial`/`Required`/`Record` and friends |
-| 24 | Computing with types | a "type-safe" API is enforced by documentation | conditional types, `infer`, distributive conditionals, recursion budgets |
-| 25 | String-typed APIs | routes, event names, and keys are stringly typed | template literal types, `keyof`, typed paths and event maps |
+| # | JavaScript problem | TypeScript answer | Folder / branch | Status |
+|---|---|---|---|---|
+| 07 | Not knowing the shape of an object | `interface` and `type` | `point-07-object-shape` · `feature/point-07-object-shape` | planned |
+| 08 | Unpredictable return values | Explicit return types | `point-08-return-types` · `feature/point-08-return-types` | planned |
+| 09 | Undocumented APIs | Types are the documentation | `point-09-types-as-docs` · `feature/point-09-types-as-docs` | planned |
+| 10 | Refactoring without knowing what breaks | The compiler lists everything affected | `point-10-safe-refactor` · `feature/point-10-safe-refactor` | planned |
+| 11 | Renaming properties by hand | Safe rename across the whole project | `point-11-safe-rename` · `feature/point-11-safe-rename` | planned |
+| 12 | Mutable objects with no control | `readonly`, `as const` | `point-12-immutability` · `feature/point-12-immutability` | planned |
 
-### Part VI — Living with it (points 26–30)
+### Level 3 — The null problem
 
-| # | Point | The JavaScript problem | The TypeScript answer |
-|---|---|---|---|
-| 26 | Structural typing is not always enough | two `string` IDs are interchangeable, and should not be | branded/nominal types, opaque types, unit-safe arithmetic |
-| 27 | The DOM and platform APIs | `getElementById` returns something you hope is an input | `lib.dom`, element and event type maps, narrowing platform values |
-| 28 | Untyped and wrongly-typed dependencies | a `.d.ts` is a claim about code the compiler never sees | writing `.d.ts`, declaration merging, module augmentation, auditing types |
-| 29 | Testing and types | tests check values; nothing checks the types | type-level tests, `expect-type`/`tsd`, typed mocks and fixtures |
-| 30 | Migration and scale | "we'll add types later", and a 40-second build | gradual adoption, JSDoc types, the strict-mode ratchet, build performance, `tsc --generateTrace` |
+| # | JavaScript problem | TypeScript answer | Folder / branch | Status |
+|---|---|---|---|---|
+| 13 | Uncontrolled `null` / `undefined` | `strictNullChecks` | `point-13-strict-null-checks` · `feature/point-13-strict-null-checks` | planned |
+| 14 | Optional chaining used without a safety net | TS knows when `?.` is needed and when it is redundant | `point-14-optional-chaining` · `feature/point-14-optional-chaining` | planned |
+| 15 | Cases left unhandled in conditionals | Narrowing and exhaustiveness checking | `point-15-exhaustiveness` · `feature/point-15-exhaustiveness` | planned |
+
+### Level 4 — Domain modeling
+
+| # | JavaScript problem | TypeScript answer | Folder / branch | Status |
+|---|---|---|---|---|
+| 16 | Magic strings (`status: "active"`) | Union types and enums | `point-16-magic-strings` · `feature/point-16-magic-strings` | planned |
+| 17 | Impossible states are representable | Discriminated unions | `point-17-discriminated-unions` · `feature/point-17-discriminated-unions` | planned |
+| 18 | Indistinguishable primitives (a `userId` and an `orderId` are both `string`) | Branded types | `point-18-branded-types` · `feature/point-18-branded-types` | planned |
+| 19 | Duplicating similar types | Utility types (`Partial`, `Pick`, `Omit`) | `point-19-utility-types` · `feature/point-19-utility-types` | planned |
+
+### Level 5 — Reuse
+
+| # | JavaScript problem | TypeScript answer | Folder / branch | Status |
+|---|---|---|---|---|
+| 20 | Duplicated code per type | Generics | `point-20-generics` · `feature/point-20-generics` | planned |
+| 21 | Functions that lose type information as data flows through | Generic inference | `point-21-generic-inference` · `feature/point-21-generic-inference` | planned |
+| 22 | Constraining generics | `extends` | `point-22-generic-constraints` · `feature/point-22-generic-constraints` | planned |
+
+### Level 6 — Boundaries and ecosystem
+
+| # | JavaScript problem | TypeScript answer | Folder / branch | Status |
+|---|---|---|---|---|
+| 23 | Unvalidated data from external APIs | Types plus runtime validation (Zod) | `point-23-runtime-validation` · `feature/point-23-runtime-validation` | planned |
+| 24 | Untyped JavaScript libraries | Declaration files (`.d.ts`), DefinitelyTyped | `point-24-declaration-files` · `feature/point-24-declaration-files` | planned |
+| 25 | Modules and imports that go unverified | Typed module resolution | `point-25-module-resolution` · `feature/point-25-module-resolution` | planned |
+
+### Level 7 — Advanced type system
+
+| # | JavaScript problem | TypeScript answer | Folder / branch | Status |
+|---|---|---|---|---|
+| 26 | Conditional type logic | Conditional types | `point-26-conditional-types` · `feature/point-26-conditional-types` | planned |
+| 27 | Transforming types programmatically | Mapped types | `point-27-mapped-types` · `feature/point-27-mapped-types` | planned |
+| 28 | Manipulating strings at the type level | Template literal types | `point-28-template-literal-types` · `feature/point-28-template-literal-types` | planned |
+| 29 | Compiler configuration that varies per project | `tsconfig.json` and its strict modes | `point-29-tsconfig-strict-modes` · `feature/point-29-tsconfig-strict-modes` | planned |
+
+---
+
+## Branch and folder strategy
+
+Each point is developed in isolation, then merged back:
+
+```
+main
+ - feature/point-01-type-errors        -> point-01-type-errors/          merged
+ - feature/point-02-implicit-coercion  -> point-02-implicit-coercion/
+ - feature/point-03-property-typos     -> point-03-property-typos/
+ - ...                                 -> ... (one branch per row above)
+```
+
+Rules that keep the series honest:
+
+1. **One branch, one point.** A branch never mixes two rows of the table.
+2. **The folder name is the branch name minus `feature/`.** No renaming games.
+3. **A point is only "complete" once it has demos, an evidence lab, and a
+   concept map** — the same anatomy as point 01 (see below).
+4. **The table above is the single source of truth for scope.** If a point
+   needs to change, the table changes first, in its own commit.
 
 ---
 
@@ -144,6 +220,6 @@ And the same file pattern per demo:
 
 ---
 
-## Licence
+## License
 
 See [LICENSE](./LICENSE).
