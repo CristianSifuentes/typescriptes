@@ -43,6 +43,8 @@ import { runBroken as broken12 } from "../04-expert/12-resolution-model.js-broke
 import { runSafe as safe12 } from "../04-expert/12-resolution-model.ts-safe.js";
 import { runBroken as broken13 } from "../04-expert/13-soundness-limits.js-broken.js";
 import { runSafe as safe13 } from "../04-expert/13-soundness-limits.ts-safe.js";
+import { runBroken as broken14 } from "../04-expert/14-rename-safety.js-broken.js";
+import { runSafe as safe14 } from "../04-expert/14-rename-safety.ts-safe.js";
 
 export type Level = "01-basic" | "02-intermediate" | "03-advanced" | "04-expert";
 
@@ -175,6 +177,15 @@ export const demos: readonly Demo[] = [
     codes: ["TS2352", "TS7053"],
     broken: broken13,
     safe: safe13,
+  },
+  {
+    id: "14-rename-safety",
+    level: "04-expert",
+    title: "Rename/refactor safety and satisfies",
+    feature: "a rename invalidates every reference simultaneously; satisfies checks shape without widening",
+    codes: ["TS2339", "TS2561"],
+    broken: broken14,
+    safe: safe14,
   },
 ];
 
