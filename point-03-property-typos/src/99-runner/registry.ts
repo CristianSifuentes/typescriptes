@@ -45,6 +45,8 @@ import { runBroken as broken13 } from "../04-expert/13-soundness-limits.js-broke
 import { runSafe as safe13 } from "../04-expert/13-soundness-limits.ts-safe.js";
 import { runBroken as broken14 } from "../04-expert/14-rename-safety.js-broken.js";
 import { runSafe as safe14 } from "../04-expert/14-rename-safety.ts-safe.js";
+import { runBroken as broken15 } from "../04-expert/15-exhaustive-keyof.js-broken.js";
+import { runSafe as safe15 } from "../04-expert/15-exhaustive-keyof.ts-safe.js";
 
 export type Level = "01-basic" | "02-intermediate" | "03-advanced" | "04-expert";
 
@@ -186,6 +188,15 @@ export const demos: readonly Demo[] = [
     codes: ["TS2339", "TS2561"],
     broken: broken14,
     safe: safe14,
+  },
+  {
+    id: "15-exhaustive-keyof",
+    level: "04-expert",
+    title: "An unknown-key guard and exhaustiveness over keyof T",
+    feature: "{ [K in keyof T]: X } requires exactly one entry per key — totality, not just shape",
+    codes: ["TS2345", "TS2741", "TS2561"],
+    broken: broken15,
+    safe: safe15,
   },
 ];
 
