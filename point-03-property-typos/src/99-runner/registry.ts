@@ -32,6 +32,8 @@ import { runSafe as safe07 } from "../02-intermediate/07-index-signatures.ts-saf
 
 import { runBroken as broken08 } from "../03-advanced/08-structural-typing.js-broken.js";
 import { runSafe as safe08 } from "../03-advanced/08-structural-typing.ts-safe.js";
+import { runBroken as broken09 } from "../03-advanced/09-excess-property-subtlety.js-broken.js";
+import { runSafe as safe09 } from "../03-advanced/09-excess-property-subtlety.ts-safe.js";
 
 export type Level = "01-basic" | "02-intermediate" | "03-advanced" | "04-expert";
 
@@ -119,6 +121,15 @@ export const demos: readonly Demo[] = [
     codes: ["TS2353"],
     broken: broken08,
     safe: safe08,
+  },
+  {
+    id: "09-excess-property-subtlety",
+    level: "03-advanced",
+    title: "Excess-property checking's subtlety",
+    feature: "freshness is scoped to the literal expression, not the type; lost through any intermediate binding",
+    codes: ["TS2561"],
+    broken: broken09,
+    safe: safe09,
   },
 ];
 
