@@ -39,6 +39,9 @@ import { runSafe as safe10 } from "../03-advanced/10-keyof.ts-safe.js";
 import { runBroken as broken11 } from "../03-advanced/11-mapped-template-keys.js-broken.js";
 import { runSafe as safe11 } from "../03-advanced/11-mapped-template-keys.ts-safe.js";
 
+import { runBroken as broken12 } from "../04-expert/12-resolution-model.js-broken.js";
+import { runSafe as safe12 } from "../04-expert/12-resolution-model.ts-safe.js";
+
 export type Level = "01-basic" | "02-intermediate" | "03-advanced" | "04-expert";
 
 export interface Demo {
@@ -152,6 +155,15 @@ export const demos: readonly Demo[] = [
     codes: ["TS2561"],
     broken: broken11,
     safe: safe11,
+  },
+  {
+    id: "12-resolution-model",
+    level: "04-expert",
+    title: "The compiler's mental model for property access",
+    feature: "own -> inherited -> index signature -> error, precomputed once vs the runtime prototype walk",
+    codes: ["TS2551"],
+    broken: broken12,
+    safe: safe12,
   },
 ];
 
