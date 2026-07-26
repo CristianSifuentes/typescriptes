@@ -1,0 +1,35 @@
+{
+  "name": "point-02-implicit-coercion",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Concept #2 - JavaScript silently coerces values between types; TypeScript blocks the invalid mixed-type operations at compile time and forces every conversion to be explicit.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "evidence": "node scripts/evidence.mjs",
+    "demo:all": "npm run build -s && node dist/99-runner/run-all.js",
+    "demo:01-plus-operator": "npm run build -s && node dist/99-runner/run.js 01-plus-operator",
+    "demo:02-arithmetic-coercion": "npm run build -s && node dist/99-runner/run.js 02-arithmetic-coercion",
+    "demo:03-truthy-falsy": "npm run build -s && node dist/99-runner/run.js 03-truthy-falsy",
+    "demo:04-loose-vs-strict-equality": "npm run build -s && node dist/99-runner/run.js 04-loose-vs-strict-equality",
+    "demo:05-object-to-primitive": "npm run build -s && node dist/99-runner/run.js 05-object-to-primitive",
+    "demo:06-null-undefined-arithmetic": "npm run build -s && node dist/99-runner/run.js 06-null-undefined-arithmetic",
+    "demo:07-abstract-equality-algorithm": "npm run build -s && node dist/99-runner/run.js 07-abstract-equality-algorithm",
+    "demo:08-union-narrowing": "npm run build -s && node dist/99-runner/run.js 08-union-narrowing",
+    "demo:09-template-literal-coercion": "npm run build -s && node dist/99-runner/run.js 09-template-literal-coercion",
+    "demo:10-toprimitive-hooks": "npm run build -s && node dist/99-runner/run.js 10-toprimitive-hooks",
+    "demo:11-branded-types": "npm run build -s && node dist/99-runner/run.js 11-branded-types",
+    "demo:12-soundness-holes": "npm run build -s && node dist/99-runner/run.js 12-soundness-holes",
+    "demo:13-boundary-validation": "npm run build -s && node dist/99-runner/run.js 13-boundary-validation",
+    "demo:14-never-guarded-op": "npm run build -s && node dist/99-runner/run.js 14-never-guarded-op"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "typescript": "^7.0.2"
+  }
+}
