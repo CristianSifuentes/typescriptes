@@ -47,6 +47,8 @@ import { runBroken as broken14 } from "../04-expert/14-rename-safety.js-broken.j
 import { runSafe as safe14 } from "../04-expert/14-rename-safety.ts-safe.js";
 import { runBroken as broken15 } from "../04-expert/15-exhaustive-keyof.js-broken.js";
 import { runSafe as safe15 } from "../04-expert/15-exhaustive-keyof.ts-safe.js";
+import { runBroken as broken16 } from "../04-expert/16-symbol-keys.js-broken.js";
+import { runSafe as safe16 } from "../04-expert/16-symbol-keys.ts-safe.js";
 
 export type Level = "01-basic" | "02-intermediate" | "03-advanced" | "04-expert";
 
@@ -197,6 +199,15 @@ export const demos: readonly Demo[] = [
     codes: ["TS2345", "TS2741", "TS2561"],
     broken: broken15,
     safe: safe15,
+  },
+  {
+    id: "16-symbol-keys",
+    level: "04-expert",
+    title: "Symbol keys, computed properties, and Object.keys",
+    feature: "symbol identity (unique symbol) checked the same way string spelling (keyof) is",
+    codes: ["TS7053"],
+    broken: broken16,
+    safe: safe16,
   },
 ];
 
