@@ -81,7 +81,7 @@ export function runSafe(): void {
       ["anything", "string", "string", "accepted"],
       ["bigint", "bigint", "bigint", "accepted"],
       ["number", "boolean", "—", "ERROR TS2365"],
-      ["number", "null / undefined", "—", "ERROR TS18050/TS18049 (strictNullChecks)"],
+      ["number", "null / undefined", "—", "ERROR TS18050 (strictNullChecks)"],
       ["number", "bigint", "—", "ERROR TS2365 (mixing numeric kinds is also rejected)"],
     ],
   );

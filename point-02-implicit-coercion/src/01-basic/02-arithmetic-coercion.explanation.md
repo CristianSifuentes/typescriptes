@@ -77,7 +77,7 @@ alternative is letting `NaN` travel unannounced through a codebase.
 | `"abc" * 2` | `NaN` | no | **TS2363** |
 | `"" - 1` | `-1` | no | **TS2362** |
 | `null * 2` | `0` | no | **TS18050** (`strictNullChecks`) |
-| `undefined - 1` | `NaN` | no | **TS18049** (`strictNullChecks`) |
+| `undefined - 1` | `NaN` | no | **TS18050** (`strictNullChecks`) |
 | `[5, 6] * 2` | `NaN` | no | **TS2362** |
 | `{} - 1` | `NaN` | no | **TS2362** |
 

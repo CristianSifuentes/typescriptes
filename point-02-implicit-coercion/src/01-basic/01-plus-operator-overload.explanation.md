@@ -41,7 +41,7 @@ was taken:
 | `bigint` | `bigint` | `bigint` |
 | `string` | *(any)* | `string` |
 | *(any)* | `string` | `string` |
-| `number` | `boolean` \| `null` \| `undefined` \| `bigint` | **TS2365 / TS18049 / TS18050** |
+| `number` | `boolean` \| `null` \| `undefined` \| `bigint` | **TS2365 / TS18050** |
 
 ```
 error TS2365: Operator '+' cannot be applied to types 'number' and 'boolean'.
