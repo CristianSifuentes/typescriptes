@@ -1,0 +1,37 @@
+{
+  "name": "point-01-type-errors",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Concept #1 - Type errors that JavaScript only surfaces at runtime are caught by TypeScript at compile time.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "evidence": "node scripts/evidence.mjs",
+    "erasure": "npm run build -s && node dist/00-foundations/type-erasure.demo.js",
+    "demo:all": "npm run build -s && node dist/99-runner/run-all.js",
+    "demo:01-primitives": "npm run build -s && node dist/99-runner/run.js 01-primitives",
+    "demo:02-coercion": "npm run build -s && node dist/99-runner/run.js 02-coercion",
+    "demo:03-nonexistent-method": "npm run build -s && node dist/99-runner/run.js 03-nonexistent-method",
+    "demo:04-function-signatures": "npm run build -s && node dist/99-runner/run.js 04-function-signatures",
+    "demo:05-object-shapes": "npm run build -s && node dist/99-runner/run.js 05-object-shapes",
+    "demo:06-typed-arrays": "npm run build -s && node dist/99-runner/run.js 06-typed-arrays",
+    "demo:07-narrowing": "npm run build -s && node dist/99-runner/run.js 07-narrowing",
+    "demo:08-unions": "npm run build -s && node dist/99-runner/run.js 08-unions",
+    "demo:09-type-guards": "npm run build -s && node dist/99-runner/run.js 09-type-guards",
+    "demo:10-never-exhaustiveness": "npm run build -s && node dist/99-runner/run.js 10-never-exhaustiveness",
+    "demo:11-type-environment": "npm run build -s && node dist/99-runner/run.js 11-type-environment",
+    "demo:12-soundness-holes": "npm run build -s && node dist/99-runner/run.js 12-soundness-holes",
+    "demo:13-discriminated-unions": "npm run build -s && node dist/99-runner/run.js 13-discriminated-unions",
+    "demo:14-assert-never": "npm run build -s && node dist/99-runner/run.js 14-assert-never",
+    "demo:15-decidability-limits": "npm run build -s && node dist/99-runner/run.js 15-decidability-limits"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "typescript": "^7.0.2"
+  }
+}
