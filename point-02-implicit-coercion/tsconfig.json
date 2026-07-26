@@ -1,0 +1,93 @@
+{
+  // =========================================================================
+  //  tsconfig.json — the contract that makes Concept #2 enforceable.
+  //
+  //  Every flag below is annotated with (a) what it does and (b) which class
+  //  of silent-coercion bug it converts into a compile-time error. Coercion is
+  //  a JavaScript *runtime* algorithm (ToPrimitive, ToNumber, ToString); these
+  //  flags are what makes TypeScript refuse to let your source text describe
+  //  an operation that would ever have to invoke one unintentionally.
+  // =========================================================================
+  "compilerOptions": {
+    // ---------------------------------------------------------------------
+    // 1. LANGUAGE + EMIT TARGET
+    // ---------------------------------------------------------------------
+    "target": "ES2023",
+    "lib": ["ES2023"],
+    "types": ["node"],
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+
+    "outDir": "dist",
+    "rootDir": "src",
+
+    "declaration": true,
+    "sourceMap": true,
+
+    // ---------------------------------------------------------------------
+    // 2. STRICTNESS — the `strict` family, spelled out
+    // ---------------------------------------------------------------------
+    "strict": true,
+
+    // The single most relevant flag in this whole project: without it, `null`
+    // and `undefined` are silent members of every type, and `null + 1` (→ 1)
+    // or `undefined + 1` (→ NaN) can be written without the compiler blinking.
+    "strictNullChecks": true,
+
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+
+    // A parameter with no annotation and no inferable type is `any` — and
+    // `any` is the one type over which every coercing operator is legal
+    // again. `noImplicitAny` forces the operand types coercion rules key off
+    // of to always be visible to the checker.
+    "noImplicitAny": true,
+
+    "useUnknownInCatchVariables": true,
+    "alwaysStrict": true,
+
+    // ---------------------------------------------------------------------
+    // 3. BEYOND `strict` — flags that close specific unsoundness holes.
+    // ---------------------------------------------------------------------
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+
+    // "absent" and "present but undefined" are different states. Relevant
+    // here because `undefined` participates in coercion (`undefined + 1` is
+    // `NaN`) in a way "the key is simply missing" never does.
+    "exactOptionalPropertyTypes": true,
+
+    "noPropertyAccessFromIndexSignature": true,
+
+    // ---------------------------------------------------------------------
+    // 4. SYNTAX / EMIT DISCIPLINE
+    // ---------------------------------------------------------------------
+    "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "skipLibCheck": true
+
+    // ---------------------------------------------------------------------
+    // 5. DELIBERATELY *NOT* ENABLED
+    //
+    //   "noUnusedLocals" / "noUnusedParameters":
+    //     Several demos declare proof-only type aliases such as
+    //         type _Proof = Expect<Equals<typeof value, string>>;
+    //     whose whole purpose is to exist and type-check. Turning these flags
+    //     on would delete the evidence (TS6133).
+    // ---------------------------------------------------------------------
+  },
+
+  "include": ["src/**/*.ts"],
+
+  // `*.tsc-error.ts` files are the evidence lab: real, unsuppressed type
+  // errors on purpose, compiled only by `npm run evidence` via
+  // tsconfig.evidence.json, so that `npm run build` stays green.
+  "exclude": ["src/**/*.tsc-error.ts", "dist", "node_modules"]
+}
