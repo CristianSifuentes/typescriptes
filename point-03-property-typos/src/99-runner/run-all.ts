@@ -19,7 +19,8 @@ import { runDemo } from "./run-demo.js";
 const DIAGNOSTIC_GLOSSARY: readonly (readonly [code: string, meaning: string])[] = [
   ["TS2339", "Property does not exist on type — the read/write target is not in the property map"],
   ["TS2551", "Property does not exist — with a spelling suggestion (near-miss typo)"],
-  ["TS2561", "Object literal may only specify known properties (freshness / excess-property check)"],
+  ["TS2561", "Object literal may only specify known properties, with a spelling suggestion (freshness)"],
+  ["TS2353", "Object literal may only specify known properties, no suggestion available (freshness)"],
   ["TS2741", "A required property is missing from the object literal"],
   ["TS2739", "Type is missing several required properties"],
   ["TS18048", "Value is possibly 'undefined' — an optional property used unguarded"],

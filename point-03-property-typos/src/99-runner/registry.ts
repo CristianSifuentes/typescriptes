@@ -30,6 +30,9 @@ import { runSafe as safe06 } from "../02-intermediate/06-readonly-typo.ts-safe.j
 import { runBroken as broken07 } from "../02-intermediate/07-index-signatures.js-broken.js";
 import { runSafe as safe07 } from "../02-intermediate/07-index-signatures.ts-safe.js";
 
+import { runBroken as broken08 } from "../03-advanced/08-structural-typing.js-broken.js";
+import { runSafe as safe08 } from "../03-advanced/08-structural-typing.ts-safe.js";
+
 export type Level = "01-basic" | "02-intermediate" | "03-advanced" | "04-expert";
 
 export interface Demo {
@@ -107,6 +110,15 @@ export const demos: readonly Demo[] = [
     codes: ["TS4111"],
     broken: broken07,
     safe: safe07,
+  },
+  {
+    id: "08-structural-typing",
+    level: "03-advanced",
+    title: "Structural typing vs nominal typing",
+    feature: "assignability compares property maps, not declared names",
+    codes: ["TS2353"],
+    broken: broken08,
+    safe: safe08,
   },
 ];
 
