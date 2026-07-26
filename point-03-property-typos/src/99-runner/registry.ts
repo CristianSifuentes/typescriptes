@@ -16,6 +16,8 @@
 
 import { runBroken as broken01 } from "../01-basic/01-read-typo.js-broken.js";
 import { runSafe as safe01 } from "../01-basic/01-read-typo.ts-safe.js";
+import { runBroken as broken02 } from "../01-basic/02-write-typo.js-broken.js";
+import { runSafe as safe02 } from "../01-basic/02-write-typo.ts-safe.js";
 
 export type Level = "01-basic" | "02-intermediate" | "03-advanced" | "04-expert";
 
@@ -40,6 +42,15 @@ export const demos: readonly Demo[] = [
     codes: ["TS2551", "TS2339"],
     broken: broken01,
     safe: safe01,
+  },
+  {
+    id: "02-write-typo",
+    level: "01-basic",
+    title: "Writing to a nonexistent property",
+    feature: "write-side member resolution; independent key-check vs value-type-check",
+    codes: ["TS2551", "TS2322"],
+    broken: broken02,
+    safe: safe02,
   },
 ];
 
