@@ -18,6 +18,8 @@ import { runBroken as broken01 } from "../01-basic/01-read-typo.js-broken.js";
 import { runSafe as safe01 } from "../01-basic/01-read-typo.ts-safe.js";
 import { runBroken as broken02 } from "../01-basic/02-write-typo.js-broken.js";
 import { runSafe as safe02 } from "../01-basic/02-write-typo.ts-safe.js";
+import { runBroken as broken03 } from "../01-basic/03-excess-property.js-broken.js";
+import { runSafe as safe03 } from "../01-basic/03-excess-property.ts-safe.js";
 
 export type Level = "01-basic" | "02-intermediate" | "03-advanced" | "04-expert";
 
@@ -51,6 +53,15 @@ export const demos: readonly Demo[] = [
     codes: ["TS2551", "TS2322"],
     broken: broken02,
     safe: safe02,
+  },
+  {
+    id: "03-excess-property",
+    level: "01-basic",
+    title: "Excess-property checking on object literals",
+    feature: "freshness: a fresh literal may declare no member the target does not",
+    codes: ["TS2741", "TS2561"],
+    broken: broken03,
+    safe: safe03,
   },
 ];
 
