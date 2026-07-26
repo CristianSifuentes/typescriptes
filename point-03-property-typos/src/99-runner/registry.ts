@@ -21,6 +21,15 @@ import { runSafe as safe02 } from "../01-basic/02-write-typo.ts-safe.js";
 import { runBroken as broken03 } from "../01-basic/03-excess-property.js-broken.js";
 import { runSafe as safe03 } from "../01-basic/03-excess-property.ts-safe.js";
 
+import { runBroken as broken04 } from "../02-intermediate/04-optional-vs-typo.js-broken.js";
+import { runSafe as safe04 } from "../02-intermediate/04-optional-vs-typo.ts-safe.js";
+import { runBroken as broken05 } from "../02-intermediate/05-nested-chain.js-broken.js";
+import { runSafe as safe05 } from "../02-intermediate/05-nested-chain.ts-safe.js";
+import { runBroken as broken06 } from "../02-intermediate/06-readonly-typo.js-broken.js";
+import { runSafe as safe06 } from "../02-intermediate/06-readonly-typo.ts-safe.js";
+import { runBroken as broken07 } from "../02-intermediate/07-index-signatures.js-broken.js";
+import { runSafe as safe07 } from "../02-intermediate/07-index-signatures.ts-safe.js";
+
 export type Level = "01-basic" | "02-intermediate" | "03-advanced" | "04-expert";
 
 export interface Demo {
@@ -62,6 +71,42 @@ export const demos: readonly Demo[] = [
     codes: ["TS2741", "TS2561"],
     broken: broken03,
     safe: safe03,
+  },
+  {
+    id: "04-optional-vs-typo",
+    level: "02-intermediate",
+    title: "Optional properties vs typos",
+    feature: "optional keys stay IN the property map (TS18048); typos never are (TS2339)",
+    codes: ["TS18048", "TS2339"],
+    broken: broken04,
+    safe: safe04,
+  },
+  {
+    id: "05-nested-chain",
+    level: "02-intermediate",
+    title: "Nested property access",
+    feature: "member resolution is compositional; each '.' checked independently, depth-agnostic",
+    codes: ["TS2551", "TS2339"],
+    broken: broken05,
+    safe: safe05,
+  },
+  {
+    id: "06-readonly-typo",
+    level: "02-intermediate",
+    title: "readonly properties and typos in assignment targets",
+    feature: "existence is checked before mutability; a typo'd readonly member is never TS2540",
+    codes: ["TS2540", "TS2551"],
+    broken: broken06,
+    safe: safe06,
+  },
+  {
+    id: "07-index-signatures",
+    level: "02-intermediate",
+    title: "Index signatures loosen typo protection",
+    feature: "[key: string]: T widens the property map's domain to every string",
+    codes: ["TS4111"],
+    broken: broken07,
+    safe: safe07,
   },
 ];
 
