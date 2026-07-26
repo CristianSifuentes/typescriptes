@@ -14,6 +14,9 @@
  * the project is runnable at every step of the series.
  */
 
+import { runBroken as broken01 } from "../01-basic/01-read-typo.js-broken.js";
+import { runSafe as safe01 } from "../01-basic/01-read-typo.ts-safe.js";
+
 export type Level = "01-basic" | "02-intermediate" | "03-advanced" | "04-expert";
 
 export interface Demo {
@@ -28,7 +31,17 @@ export interface Demo {
   readonly safe: () => void;
 }
 
-export const demos: readonly Demo[] = [];
+export const demos: readonly Demo[] = [
+  {
+    id: "01-read-typo",
+    level: "01-basic",
+    title: "Reading a misspelled property",
+    feature: "member resolution against the declared property map; TS2551 spelling suggestions",
+    codes: ["TS2551", "TS2339"],
+    broken: broken01,
+    safe: safe01,
+  },
+];
 
 export const findDemo = (id: string): Demo | undefined =>
   demos.find((demo) => demo.id === id);
