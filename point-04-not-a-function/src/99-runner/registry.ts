@@ -27,6 +27,8 @@ import { runBroken as broken05 } from "../02-intermediate/05-property-not-functi
 import { runSafe as safe05 } from "../02-intermediate/05-property-not-function.ts-safe.js";
 import { runBroken as broken06 } from "../02-intermediate/06-optional-chaining-call.js-broken.js";
 import { runSafe as safe06 } from "../02-intermediate/06-optional-chaining-call.ts-safe.js";
+import { runBroken as broken07 } from "../02-intermediate/07-noncallable-callback.js-broken.js";
+import { runSafe as safe07 } from "../02-intermediate/07-noncallable-callback.ts-safe.js";
 
 export type Level = "01-basic" | "02-intermediate" | "03-advanced" | "04-expert";
 
@@ -96,6 +98,15 @@ export const demos: readonly Demo[] = [
     codes: ["TS18048"],
     broken: broken06,
     safe: safe06,
+  },
+  {
+    id: "07-noncallable-callback",
+    level: "02-intermediate",
+    title: "A non-callable argument where a callback is expected",
+    feature: "callback parameters checked by ordinary argument assignability (TS2345), reported at the call site",
+    codes: ["TS2345"],
+    broken: broken07,
+    safe: safe07,
   },
 ];
 
