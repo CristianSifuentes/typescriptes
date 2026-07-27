@@ -14,6 +14,9 @@
  * the project is runnable at every step of the series.
  */
 
+import { runBroken as broken01 } from "../01-basic/01-noncallable-value.js-broken.js";
+import { runSafe as safe01 } from "../01-basic/01-noncallable-value.ts-safe.js";
+
 export type Level = "01-basic" | "02-intermediate" | "03-advanced" | "04-expert";
 
 export interface Demo {
@@ -28,7 +31,17 @@ export interface Demo {
   readonly safe: () => void;
 }
 
-export const demos: readonly Demo[] = [];
+export const demos: readonly Demo[] = [
+  {
+    id: "01-noncallable-value",
+    level: "01-basic",
+    title: "Calling a non-function value",
+    feature: "callable-type checking: does the static type have a call signature at all?",
+    codes: ["TS2349"],
+    broken: broken01,
+    safe: safe01,
+  },
+];
 
 export const findDemo = (id: string): Demo | undefined =>
   demos.find((demo) => demo.id === id);
