@@ -16,6 +16,8 @@
 
 import { runBroken as broken01 } from "../01-basic/01-noncallable-value.js-broken.js";
 import { runSafe as safe01 } from "../01-basic/01-noncallable-value.ts-safe.js";
+import { runBroken as broken02 } from "../01-basic/02-misspelled-method.js-broken.js";
+import { runSafe as safe02 } from "../01-basic/02-misspelled-method.ts-safe.js";
 
 export type Level = "01-basic" | "02-intermediate" | "03-advanced" | "04-expert";
 
@@ -40,6 +42,15 @@ export const demos: readonly Demo[] = [
     codes: ["TS2349"],
     broken: broken01,
     safe: safe01,
+  },
+  {
+    id: "02-misspelled-method",
+    level: "01-basic",
+    title: "A misspelled method call",
+    feature: "member existence (Concept #3) checked before callability (Concept #4) is ever asked",
+    codes: ["TS2551"],
+    broken: broken02,
+    safe: safe02,
   },
 ];
 
