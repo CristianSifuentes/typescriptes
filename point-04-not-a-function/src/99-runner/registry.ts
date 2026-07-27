@@ -23,6 +23,9 @@ import { runSafe as safe03 } from "../01-basic/03-wrong-type-method.ts-safe.js";
 import { runBroken as broken04 } from "../01-basic/04-function-typed-variable.js-broken.js";
 import { runSafe as safe04 } from "../01-basic/04-function-typed-variable.ts-safe.js";
 
+import { runBroken as broken05 } from "../02-intermediate/05-property-not-function.js-broken.js";
+import { runSafe as safe05 } from "../02-intermediate/05-property-not-function.ts-safe.js";
+
 export type Level = "01-basic" | "02-intermediate" | "03-advanced" | "04-expert";
 
 export interface Demo {
@@ -73,6 +76,15 @@ export const demos: readonly Demo[] = [
     codes: ["TS2322"],
     broken: broken04,
     safe: safe04,
+  },
+  {
+    id: "05-property-not-function",
+    level: "02-intermediate",
+    title: "A data field, called as a method",
+    feature: "TS2349 reached through a realistic mixed data/callback config object",
+    codes: ["TS2349"],
+    broken: broken05,
+    safe: safe05,
   },
 ];
 
