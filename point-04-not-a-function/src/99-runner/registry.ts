@@ -25,6 +25,8 @@ import { runSafe as safe04 } from "../01-basic/04-function-typed-variable.ts-saf
 
 import { runBroken as broken05 } from "../02-intermediate/05-property-not-function.js-broken.js";
 import { runSafe as safe05 } from "../02-intermediate/05-property-not-function.ts-safe.js";
+import { runBroken as broken06 } from "../02-intermediate/06-optional-chaining-call.js-broken.js";
+import { runSafe as safe06 } from "../02-intermediate/06-optional-chaining-call.ts-safe.js";
 
 export type Level = "01-basic" | "02-intermediate" | "03-advanced" | "04-expert";
 
@@ -85,6 +87,15 @@ export const demos: readonly Demo[] = [
     codes: ["TS2349"],
     broken: broken05,
     safe: safe05,
+  },
+  {
+    id: "06-optional-chaining-call",
+    level: "02-intermediate",
+    title: "Optional methods and ?.()",
+    feature: "onError?: is a union with undefined; calling it unguarded is TS18048, ?.() is the disciplined fix",
+    codes: ["TS18048"],
+    broken: broken06,
+    safe: safe06,
   },
 ];
 
