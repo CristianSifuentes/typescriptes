@@ -20,6 +20,8 @@ import { runBroken as broken02 } from "../01-basic/02-misspelled-method.js-broke
 import { runSafe as safe02 } from "../01-basic/02-misspelled-method.ts-safe.js";
 import { runBroken as broken03 } from "../01-basic/03-wrong-type-method.js-broken.js";
 import { runSafe as safe03 } from "../01-basic/03-wrong-type-method.ts-safe.js";
+import { runBroken as broken04 } from "../01-basic/04-function-typed-variable.js-broken.js";
+import { runSafe as safe04 } from "../01-basic/04-function-typed-variable.ts-safe.js";
 
 export type Level = "01-basic" | "02-intermediate" | "03-advanced" | "04-expert";
 
@@ -62,6 +64,15 @@ export const demos: readonly Demo[] = [
     codes: ["TS2339", "TS2345"],
     broken: broken03,
     safe: safe03,
+  },
+  {
+    id: "04-function-typed-variable",
+    level: "01-basic",
+    title: "Function-typed variables",
+    feature: "a call signature is a type; assignability checked exactly like any other type",
+    codes: ["TS2322"],
+    broken: broken04,
+    safe: safe04,
   },
 ];
 
