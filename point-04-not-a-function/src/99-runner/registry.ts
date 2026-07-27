@@ -18,6 +18,8 @@ import { runBroken as broken01 } from "../01-basic/01-noncallable-value.js-broke
 import { runSafe as safe01 } from "../01-basic/01-noncallable-value.ts-safe.js";
 import { runBroken as broken02 } from "../01-basic/02-misspelled-method.js-broken.js";
 import { runSafe as safe02 } from "../01-basic/02-misspelled-method.ts-safe.js";
+import { runBroken as broken03 } from "../01-basic/03-wrong-type-method.js-broken.js";
+import { runSafe as safe03 } from "../01-basic/03-wrong-type-method.ts-safe.js";
 
 export type Level = "01-basic" | "02-intermediate" | "03-advanced" | "04-expert";
 
@@ -51,6 +53,15 @@ export const demos: readonly Demo[] = [
     codes: ["TS2551"],
     broken: broken02,
     safe: safe02,
+  },
+  {
+    id: "03-wrong-type-method",
+    level: "01-basic",
+    title: "A method that exists, on the wrong type",
+    feature: "correctly-spelled member absent from THIS type's property map; diagnostic moves to the call site across a function boundary",
+    codes: ["TS2339", "TS2345"],
+    broken: broken03,
+    safe: safe03,
   },
 ];
 
