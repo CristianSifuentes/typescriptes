@@ -1,0 +1,38 @@
+{
+  "name": "point-04-not-a-function",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Concept #4 - TypeScript verifies at compile time that whatever you invoke with () is actually callable, with a compatible signature.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "evidence": "node scripts/evidence.mjs",
+    "demo:all": "npm run build -s && node dist/99-runner/run-all.js",
+    "demo:01-noncallable-value": "npm run build -s && node dist/99-runner/run.js 01-noncallable-value",
+    "demo:02-misspelled-method": "npm run build -s && node dist/99-runner/run.js 02-misspelled-method",
+    "demo:03-wrong-type-method": "npm run build -s && node dist/99-runner/run.js 03-wrong-type-method",
+    "demo:04-function-typed-variable": "npm run build -s && node dist/99-runner/run.js 04-function-typed-variable",
+    "demo:05-property-not-function": "npm run build -s && node dist/99-runner/run.js 05-property-not-function",
+    "demo:06-optional-chaining-call": "npm run build -s && node dist/99-runner/run.js 06-optional-chaining-call",
+    "demo:07-noncallable-callback": "npm run build -s && node dist/99-runner/run.js 07-noncallable-callback",
+    "demo:08-strict-null-invocation": "npm run build -s && node dist/99-runner/run.js 08-strict-null-invocation",
+    "demo:09-call-signatures-hybrid": "npm run build -s && node dist/99-runner/run.js 09-call-signatures-hybrid",
+    "demo:10-overloads": "npm run build -s && node dist/99-runner/run.js 10-overloads",
+    "demo:11-this-binding": "npm run build -s && node dist/99-runner/run.js 11-this-binding",
+    "demo:12-narrowing-to-callable": "npm run build -s && node dist/99-runner/run.js 12-narrowing-to-callable",
+    "demo:13-invocation-resolution-model": "npm run build -s && node dist/99-runner/run.js 13-invocation-resolution-model",
+    "demo:14-soundness-limits": "npm run build -s && node dist/99-runner/run.js 14-soundness-limits",
+    "demo:15-typed-dispatch-registry": "npm run build -s && node dist/99-runner/run.js 15-typed-dispatch-registry",
+    "demo:16-function-variance": "npm run build -s && node dist/99-runner/run.js 16-function-variance",
+    "demo:17-function-vs-precise-signatures": "npm run build -s && node dist/99-runner/run.js 17-function-vs-precise-signatures"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "typescript": "^7.0.2"
+  }
+}

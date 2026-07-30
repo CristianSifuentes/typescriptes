@@ -1,0 +1,37 @@
+{
+  "name": "point-03-property-typos",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Concept #3 - TypeScript verifies every property read or write against the declared shape of an object, catching typos the instant you type them.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "evidence": "node scripts/evidence.mjs",
+    "demo:all": "npm run build -s && node dist/99-runner/run-all.js",
+    "demo:01-read-typo": "npm run build -s && node dist/99-runner/run.js 01-read-typo",
+    "demo:02-write-typo": "npm run build -s && node dist/99-runner/run.js 02-write-typo",
+    "demo:03-excess-property": "npm run build -s && node dist/99-runner/run.js 03-excess-property",
+    "demo:04-optional-vs-typo": "npm run build -s && node dist/99-runner/run.js 04-optional-vs-typo",
+    "demo:05-nested-chain": "npm run build -s && node dist/99-runner/run.js 05-nested-chain",
+    "demo:06-readonly-typo": "npm run build -s && node dist/99-runner/run.js 06-readonly-typo",
+    "demo:07-index-signatures": "npm run build -s && node dist/99-runner/run.js 07-index-signatures",
+    "demo:08-structural-typing": "npm run build -s && node dist/99-runner/run.js 08-structural-typing",
+    "demo:09-excess-property-subtlety": "npm run build -s && node dist/99-runner/run.js 09-excess-property-subtlety",
+    "demo:10-keyof": "npm run build -s && node dist/99-runner/run.js 10-keyof",
+    "demo:11-mapped-template-keys": "npm run build -s && node dist/99-runner/run.js 11-mapped-template-keys",
+    "demo:12-resolution-model": "npm run build -s && node dist/99-runner/run.js 12-resolution-model",
+    "demo:13-soundness-limits": "npm run build -s && node dist/99-runner/run.js 13-soundness-limits",
+    "demo:14-rename-safety": "npm run build -s && node dist/99-runner/run.js 14-rename-safety",
+    "demo:15-exhaustive-keyof": "npm run build -s && node dist/99-runner/run.js 15-exhaustive-keyof",
+    "demo:16-symbol-keys": "npm run build -s && node dist/99-runner/run.js 16-symbol-keys"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "typescript": "^7.0.2"
+  }
+}
