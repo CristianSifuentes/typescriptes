@@ -1,0 +1,99 @@
+{
+  // =========================================================================
+  //  tsconfig.json — the *contract* between you and the type checker.
+  //
+  //  Concept #4 is about ONE mechanism: verifying, before a single line runs,
+  //  that whatever sits to the left of `(` is actually callable and that the
+  //  arguments you hand it match one of its call signatures. The flags below
+  //  are annotated with (a) what each does and (b) which of this project's
+  //  "is not a function" failure modes it closes.
+  // =========================================================================
+  "compilerOptions": {
+    // ---------------------------------------------------------------------
+    // 1. LANGUAGE + EMIT TARGET
+    // ---------------------------------------------------------------------
+    "target": "ES2023",
+    "lib": ["ES2023"],
+    "types": ["node"],
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+
+    "outDir": "dist",
+    "rootDir": "src",
+
+    "declaration": true,
+    "sourceMap": true,
+
+    // ---------------------------------------------------------------------
+    // 2. STRICTNESS — the `strict` family, spelled out
+    // ---------------------------------------------------------------------
+    "strict": true,
+
+    // The mechanism behind demo 08 and 06: a value typed `Fn | undefined`
+    // cannot be invoked until `undefined` is removed from the union. Without
+    // this flag, EVERY function-typed slot is implicitly invokable even when
+    // it might be absent — exactly the runtime crash this project dissects.
+    "strictNullChecks": true,
+
+    // Function PARAMETERS are checked contravariantly (demo 16) instead of
+    // bivariantly — the correct, sound direction for plain function types.
+    // (Method syntax keeps a deliberate bivariant hole; see demo 14/16.)
+    "strictFunctionTypes": true,
+
+    // `.call` / `.apply` / `.bind` are typed against the callee's real
+    // parameter list, instead of accepting `any[]` — relevant the moment
+    // `this`-binding (demo 11) is involved.
+    "strictBindCallApply": true,
+
+    "strictPropertyInitialization": true,
+
+    // A free `this` inside a function body is an error instead of `any` —
+    // the static half of demo 11's `this`-binding story.
+    "noImplicitThis": true,
+
+    // A callback parameter with no annotation would otherwise become `any`,
+    // which has no call signature to check — reopening exactly the hole
+    // demo 14 dissects. This flag closes it by default everywhere else.
+    "noImplicitAny": true,
+
+    "useUnknownInCatchVariables": true,
+    "alwaysStrict": true,
+
+    // ---------------------------------------------------------------------
+    // 3. BEYOND `strict`
+    // ---------------------------------------------------------------------
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "exactOptionalPropertyTypes": true,
+    "noPropertyAccessFromIndexSignature": true,
+
+    // ---------------------------------------------------------------------
+    // 4. SYNTAX / EMIT DISCIPLINE
+    // ---------------------------------------------------------------------
+    "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "skipLibCheck": true
+
+    // ---------------------------------------------------------------------
+    // 5. DELIBERATELY *NOT* ENABLED
+    //
+    //   "noUnusedLocals" / "noUnusedParameters":
+    //     Several demos declare proof-only bindings such as
+    //         const _typed: Handler = value;
+    //     whose entire purpose is to exist and type-check. In production
+    //     code you should turn both on; here they would delete the evidence.
+    // ---------------------------------------------------------------------
+  },
+
+  "include": ["src/**/*.ts"],
+
+  // `*.tsc-error.ts` files are the evidence lab: real, unsuppressed type
+  // errors on purpose, compiled separately by tsconfig.evidence.json so that
+  // `npm run build` stays green and every demo remains executable.
+  "exclude": ["src/**/*.tsc-error.ts", "dist", "node_modules"]
+}
