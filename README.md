@@ -26,7 +26,7 @@ Every point is built to the same standard:
 | **Points** | 29 |
 | **Levels** | 7 |
 | **Format** | one npm project per point, one branch per point |
-| **Progress** | 3 / 29 complete |
+| **Progress** | 4 / 29 complete |
 
 ```bash
 cd point-01-type-errors
@@ -94,7 +94,7 @@ branch** where the example lives, and its **status**.
 | 01 | Type errors discovered at runtime | Static typing that catches them as you write | [`point-01-type-errors`](./point-01-type-errors/) · `feature/point-01-type-errors` | **complete** — 15 demos, 4 levels, evidence lab |
 | 02 | Implicit coercion (`"5" + 3 === "53"`) | TS blocks the invalid operation before it runs | [`point-02-implicit-coercion`](./point-02-implicit-coercion/) · `feature/point-02-implicit-coercion` | **complete** — 14 demos, 4 levels, evidence lab |
 | 03 | Typos in property names | Autocomplete and verification of the object's shape | [`point-03-property-typos`](./point-03-property-typos/) · `features/three` | **complete** — 16 demos, 4 levels, evidence lab |
-| 04 | `undefined is not a function` | Verification that the method exists before it is called | `point-04-undefined-not-a-function` · `feature/point-04-undefined-not-a-function` | planned |
+| 04 | `undefined is not a function` | Verification that the method exists before it is called | [`point-04-not-a-function`](./point-04-not-a-function/) · `features/four` | **complete** — 17 demos, 4 levels, evidence lab |
 | 05 | Too many or too few function parameters | Mandatory function signatures | `point-05-function-arity` · `feature/point-05-function-arity` | planned |
 | 06 | Arguments passed in the wrong order | Distinct types per position | `point-06-argument-order` · `feature/point-06-argument-order` | planned |
 
@@ -162,6 +162,7 @@ main
  - feature/point-01-type-errors        -> point-01-type-errors/          merged
  - feature/point-02-implicit-coercion  -> point-02-implicit-coercion/    merged
  - features/three                      -> point-03-property-typos/      merged
+ - features/four                       -> point-04-not-a-function/     merged
  - ...                                 -> ... (one branch per row above)
 ```
 

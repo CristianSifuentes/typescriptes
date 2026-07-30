@@ -24,6 +24,8 @@ const DIAGNOSTIC_GLOSSARY: readonly (readonly [code: string, meaning: string])[]
   ["TS2345", "Argument is not assignable to parameter — includes non-callable arguments"],
   ["TS2769", "No overload matches this call — every candidate signature was rejected"],
   ["TS18048", "Value is possibly 'undefined' — an optional/nullable function used unguarded"],
+  ["TS2684", "The 'this' context of type 'X' is not assignable to method's 'this' of type 'Y'"],
+  ["TS2741", "Property is missing in type — a total Record<Key, Handler> map with a gap"],
 ];
 
 function finalReport(): void {
