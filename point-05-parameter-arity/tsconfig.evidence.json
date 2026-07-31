@@ -1,0 +1,19 @@
+{
+  // =========================================================================
+  //  tsconfig.evidence.json — THE EVIDENCE LAB
+  //
+  //  Compiles ONLY the `*.tsc-error.ts` files, which contain deliberate,
+  //  UNSUPPRESSED type errors. `npm run evidence` runs this config and prints
+  //  the raw diagnostics — message text and TSxxxx code included — so that
+  //  every claim this project makes about arity/type checking is backed by
+  //  the compiler's own words, not paraphrase.
+  //
+  //  Expected result: this compilation FAILS. That failure is the deliverable.
+  // =========================================================================
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": ["src/**/*.tsc-error.ts"],
+  "exclude": []
+}

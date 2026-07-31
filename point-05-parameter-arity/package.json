@@ -1,0 +1,38 @@
+{
+  "name": "point-05-parameter-arity",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Concept #5 - TypeScript enforces a function's arity and per-parameter types at compile time, accounting for optional, default, and rest parameters.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "evidence": "node scripts/evidence.mjs",
+    "demo:all": "npm run build -s && node dist/99-runner/run-all.js",
+    "demo:01-too-few-arguments": "npm run build -s && node dist/99-runner/run.js 01-too-few-arguments",
+    "demo:02-too-many-arguments": "npm run build -s && node dist/99-runner/run.js 02-too-many-arguments",
+    "demo:03-wrong-type-argument": "npm run build -s && node dist/99-runner/run.js 03-wrong-type-argument",
+    "demo:04-undefined-vs-missing": "npm run build -s && node dist/99-runner/run.js 04-undefined-vs-missing",
+    "demo:05-optional-parameters": "npm run build -s && node dist/99-runner/run.js 05-optional-parameters",
+    "demo:06-default-parameters": "npm run build -s && node dist/99-runner/run.js 06-default-parameters",
+    "demo:07-rest-parameters": "npm run build -s && node dist/99-runner/run.js 07-rest-parameters",
+    "demo:08-required-after-optional-ordering": "npm run build -s && node dist/99-runner/run.js 08-required-after-optional-ordering",
+    "demo:09-tuple-parameters": "npm run build -s && node dist/99-runner/run.js 09-tuple-parameters",
+    "demo:10-spread-arguments": "npm run build -s && node dist/99-runner/run.js 10-spread-arguments",
+    "demo:11-overload-arity-resolution": "npm run build -s && node dist/99-runner/run.js 11-overload-arity-resolution",
+    "demo:12-destructured-parameters": "npm run build -s && node dist/99-runner/run.js 12-destructured-parameters",
+    "demo:13-call-resolution-model": "npm run build -s && node dist/99-runner/run.js 13-call-resolution-model",
+    "demo:14-variadic-generic-arity": "npm run build -s && node dist/99-runner/run.js 14-variadic-generic-arity",
+    "demo:15-soundness-limits": "npm run build -s && node dist/99-runner/run.js 15-soundness-limits",
+    "demo:16-strict-function-types-bivariance": "npm run build -s && node dist/99-runner/run.js 16-strict-function-types-bivariance",
+    "demo:17-never-arity-guard": "npm run build -s && node dist/99-runner/run.js 17-never-arity-guard"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "typescript": "^7.0.2"
+  }
+}
