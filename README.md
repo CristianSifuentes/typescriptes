@@ -21,12 +21,13 @@ Every point is built to the same standard:
 | # | point | status |
 |---|---|---|
 | 01 | [Type errors at runtime vs compile time](./point-01-type-errors/) | ✅ **complete** — 15 demos, 4 levels, evidence lab |
-| 02–30 | see the table of contents below | 🚧 planned |
+| 06 | [Arguments in the wrong order](./point-06-argument-order/) | ✅ **complete** — 14 demos, 4 levels, evidence lab |
+| others | see the table of contents below | 🚧 planned |
 
 ```bash
-cd point-01-type-errors
+cd point-01-type-errors        # or point-06-argument-order
 npm install
-npm run demo:all      # 15 demos + the final report
+npm run demo:all      # every demo + the final report
 npm run evidence      # real tsc diagnostics, unsuppressed
 ```
 
@@ -42,61 +43,66 @@ deliberate: each point assumes only the points before it.
 
 | # | Point | The JavaScript problem | The TypeScript answer |
 |---|---|---|---|
-| **01** | **Type errors at runtime → compile time** | a defect is discovered by a user, on one input, in production | static checking over all executions; erasure; `never`; the soundness holes |
+| **01** | **[Type errors at runtime → compile time](./point-01-type-errors/)** | a defect is discovered by a user, on one input, in production | static checking over all executions; erasure; `never`; the soundness holes |
 | 02 | Implicit coercion, `==`, and truthiness | `"5" - 3`, `0 \|\| default`, `if ("false")` | operator operand rules, literal types, `??`, `!== undefined` |
 | 03 | `undefined is not a function` | prototype-chain lookup fails at call time | static member resolution; `unknown`; optional chaining |
 | 04 | Null and undefined — the billion-dollar mistake | every value is secretly nullable | `strictNullChecks`, narrowing, `NonNullable`, `?.` and `??` |
-| 05 | Function contracts | arity, argument order, and return types are suggestions | signatures, overloads, optional/rest params, branded parameters |
+| 05 | Function contracts: arity and return types | a signature is a suggestion | signatures, overloads, optional/rest params, completeness of returns |
 
-### Part II — Shapes and data (points 06–10)
-
-| # | Point | The JavaScript problem | The TypeScript answer |
-|---|---|---|---|
-| 06 | Object shape drift | a renamed field breaks callers silently | `interface`/`type`, structural typing, freshness, `Omit`/`Pick` |
-| 07 | Arrays, tuples, and heterogeneous data | one stray element changes a fold's meaning | element types, tuples, `readonly`, `noUncheckedIndexedAccess` |
-| 08 | Magic strings and enums | `"activ"` compiles, ships, and matches nothing | literal types, `as const`, unions vs `enum`, exhaustive `Record` |
-| 09 | Unhandled states | a new case makes every `switch` silently return `undefined` | discriminated unions, `never`, `assertNever`, exhaustive `match` |
-| 10 | Immutability and accidental mutation | a shared object is mutated three modules away | `readonly`, `as const`, `Readonly<T>`, and where they stop working |
-
-### Part III — The runtime model (points 11–15)
+### Part II — Calls and shapes (points 06–11)
 
 | # | Point | The JavaScript problem | The TypeScript answer |
 |---|---|---|---|
-| 11 | `this`, bound and unbound | an extracted method loses its receiver | `ThisParameterType`, `noImplicitThis`, `strictBindCallApply`, arrow semantics |
-| 12 | Classes, visibility, and initialization | `_private` is a naming convention; fields may be `undefined` | `private`/`#`, `abstract`, `override`, `strictPropertyInitialization` |
-| 13 | Asynchrony and promises | a forgotten `await` silently yields a `Promise` | `Promise<T>` inference, `await` typing, floating-promise detection, typed rejections |
-| 14 | Iterators, generators, async iteration | protocol conformance is checked by crashing | `Iterable<T>`, `AsyncIterable<T>`, generator yield/return/next types |
-| 15 | Modules and interop | a wrong import path fails at load time | module resolution, `verbatimModuleSyntax`, ESM/CJS interop, circular imports |
+| **06** | **[Arguments in the wrong order](./point-06-argument-order/)** | `createUser(25, "Ana")` runs and corrupts everything downstream | positional type matching; the same-type blind spot; branded types, options objects, labeled tuples, builders |
+| 07 | Object shape drift | a renamed field breaks callers silently | `interface`/`type`, structural typing, freshness, `Omit`/`Pick` |
+| 08 | Arrays, tuples, and heterogeneous data | one stray element changes a fold's meaning | element types, tuples, `readonly`, `noUncheckedIndexedAccess` |
+| 09 | Magic strings and enums | `"activ"` compiles, ships, and matches nothing | literal types, `as const`, unions vs `enum`, exhaustive `Record` |
+| 10 | Unhandled states | a new case makes every `switch` silently return `undefined` | discriminated unions, `never`, `assertNever`, exhaustive `match` |
+| 11 | Immutability and accidental mutation | a shared object is mutated three modules away | `readonly`, `as const`, `Readonly<T>`, and where they stop working |
 
-### Part IV — The boundary (points 16–20)
-
-| # | Point | The JavaScript problem | The TypeScript answer |
-|---|---|---|---|
-| 16 | Untyped external data | `JSON.parse` returns whatever it likes | `unknown`, type guards, schema validation, parse-don't-validate |
-| 17 | Configuration and environment | every `process.env` value is a string or missing | typed config objects, boundary parsing, `satisfies` |
-| 18 | HTTP and API contracts | request/response shapes live in documentation | typed clients, types generated from OpenAPI/GraphQL, end-to-end inference |
-| 19 | Databases and persistence | a row is `any` the moment it leaves the driver | typed query builders, generated row types, branded IDs |
-| 20 | Errors as values | `catch (e)` gives you something; nobody knows what | `useUnknownInCatchVariables`, typed error unions, `Result<T, E>` |
-
-### Part V — The type system as a language (points 21–25)
+### Part III — The runtime model (points 12–16)
 
 | # | Point | The JavaScript problem | The TypeScript answer |
 |---|---|---|---|
-| 21 | Reuse without `any` | generic code is written by giving up on types | generics, constraints, inference sites, variance |
-| 22 | Higher-order functions | `compose`, `pipe`, and curried helpers lose all type information | generic inference, tuple types, variadic type parameters |
-| 23 | Transforming types | shapes are duplicated by hand and drift apart | mapped types, key remapping, `Partial`/`Required`/`Record` and friends |
-| 24 | Computing with types | a "type-safe" API is enforced by documentation | conditional types, `infer`, distributive conditionals, recursion budgets |
-| 25 | String-typed APIs | routes, event names, and keys are stringly typed | template literal types, `keyof`, typed paths and event maps |
+| 12 | `this`, bound and unbound | an extracted method loses its receiver | `ThisParameterType`, `noImplicitThis`, `strictBindCallApply`, arrow semantics |
+| 13 | Classes, visibility, and initialization | `_private` is a naming convention; fields may be `undefined` | `private`/`#`, `abstract`, `override`, `strictPropertyInitialization` |
+| 14 | Asynchrony and promises | a forgotten `await` silently yields a `Promise` | `Promise<T>` inference, `await` typing, floating-promise detection, typed rejections |
+| 15 | Iterators, generators, async iteration | protocol conformance is checked by crashing | `Iterable<T>`, `AsyncIterable<T>`, generator yield/return/next types |
+| 16 | Modules and interop | a wrong import path fails at load time | module resolution, `verbatimModuleSyntax`, ESM/CJS interop, circular imports |
 
-### Part VI — Living with it (points 26–30)
+### Part IV — The boundary (points 17–21)
 
 | # | Point | The JavaScript problem | The TypeScript answer |
 |---|---|---|---|
-| 26 | Structural typing is not always enough | two `string` IDs are interchangeable, and should not be | branded/nominal types, opaque types, unit-safe arithmetic |
+| 17 | Untyped external data | `JSON.parse` returns whatever it likes | `unknown`, type guards, schema validation, parse-don't-validate |
+| 18 | Configuration and environment | every `process.env` value is a string or missing | typed config objects, boundary parsing, `satisfies` |
+| 19 | HTTP and API contracts | request/response shapes live in documentation | typed clients, types generated from OpenAPI/GraphQL, end-to-end inference |
+| 20 | Databases and persistence | a row is `any` the moment it leaves the driver | typed query builders, generated row types, branded IDs |
+| 21 | Errors as values | `catch (e)` gives you something; nobody knows what | `useUnknownInCatchVariables`, typed error unions, `Result<T, E>` |
+
+### Part V — The type system as a language (points 22–26)
+
+| # | Point | The JavaScript problem | The TypeScript answer |
+|---|---|---|---|
+| 22 | Reuse without `any` | generic code is written by giving up on types | generics, constraints, inference sites, variance |
+| 23 | Higher-order functions | `compose`, `pipe`, and curried helpers lose all type information | generic inference, tuple types, variadic type parameters |
+| 24 | Transforming types | shapes are duplicated by hand and drift apart | mapped types, key remapping, `Partial`/`Required`/`Record` and friends |
+| 25 | Computing with types | a "type-safe" API is enforced by documentation | conditional types, `infer`, distributive conditionals, recursion budgets |
+| 26 | String-typed APIs | routes, event names, and keys are stringly typed | template literal types, `keyof`, typed paths and event maps |
+
+### Part VI — Living with it (points 27–30)
+
+| # | Point | The JavaScript problem | The TypeScript answer |
+|---|---|---|---|
 | 27 | The DOM and platform APIs | `getElementById` returns something you hope is an input | `lib.dom`, element and event type maps, narrowing platform values |
 | 28 | Untyped and wrongly-typed dependencies | a `.d.ts` is a claim about code the compiler never sees | writing `.d.ts`, declaration merging, module augmentation, auditing types |
 | 29 | Testing and types | tests check values; nothing checks the types | type-level tests, `expect-type`/`tsd`, typed mocks and fixtures |
 | 30 | Migration and scale | "we'll add types later", and a 40-second build | gradual adoption, JSDoc types, the strict-mode ratchet, build performance, `tsc --generateTrace` |
+
+> **A note on numbering.** Points 01 and 06 are built to the concepts exactly as
+> you specified them. The other rows are my proposed decomposition, renumbered
+> around point 06 — they may not match your own list. Tell me the real title for
+> a point and I will re-align the table before building it.
 
 ---
 

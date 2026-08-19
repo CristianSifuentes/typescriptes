@@ -1,0 +1,160 @@
+{
+  // =========================================================================
+  //  tsconfig.json — the *contract* between you and the type checker.
+  //
+  //  Every flag below is annotated with (a) what it does and (b) which class
+  //  of runtime bug it converts into a compile-time error.
+  //
+  //  For Concept #6 (argument order) the load-bearing flags are `strict`
+  //  (which brings `strictFunctionTypes` and `noImplicitAny`) and
+  //  `erasableSyntaxOnly` — the latter because this project's central remedy,
+  //  BRANDED TYPES, must cost exactly nothing at runtime. The flag makes that
+  //  a machine-checked property rather than a promise.
+  // =========================================================================
+  "compilerOptions": {
+    // ---------------------------------------------------------------------
+    // 1. LANGUAGE + EMIT TARGET
+    // ---------------------------------------------------------------------
+
+    // Which JavaScript version the *erased* output is written in. Types do not
+    // survive this step — see src/00-foundations/manifesto.md ("type erasure").
+    "target": "ES2023",
+
+    // Which built-in type declarations are visible (Array.prototype.at, etc.).
+    // Note the absence of "DOM": this project runs in Node, so `document` and
+    // `window` are *correctly* unknown identifiers here. The lib list is part
+    // of the type environment, not a formality.
+    "lib": ["ES2023"],
+
+    // Ambient declaration packages to load. Explicit is better than implicit:
+    // without this, the compiler auto-includes everything under node_modules/
+    // @types, which makes the type environment depend on your install tree.
+    "types": ["node"],
+
+    // Node's own module algorithm, in its modern form. Because package.json
+    // says `"type": "module"`, this project emits real ESM and every relative
+    // import must carry the *emitted* extension (`./trace.js`, not `./trace`).
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+
+    "outDir": "dist",
+    "rootDir": "src",
+
+    // Emit `.d.ts` + `.js.map` so you can inspect exactly what survives
+    // compilation (the declarations) versus what evaporates (the checks).
+    "declaration": true,
+    "sourceMap": true,
+
+    // ---------------------------------------------------------------------
+    // 2. STRICTNESS — the `strict` family, spelled out
+    //    `"strict": true` is a shorthand. We enable it *and* list each member
+    //    explicitly so that nothing is switched on by accident.
+    // ---------------------------------------------------------------------
+    "strict": true,
+
+    // `null`/`undefined` are no longer members of every type. This single flag
+    // is the antidote to "Cannot read properties of undefined (reading 'x')",
+    // historically the single most common JavaScript runtime crash.
+    "strictNullChecks": true,
+
+    // Function parameter types are checked contravariantly (bivariance is a
+    // deliberate unsoundness TypeScript keeps only for method syntax).
+    "strictFunctionTypes": true,
+
+    // `.call` / `.apply` / `.bind` are typed instead of accepting `any[]`.
+    "strictBindCallApply": true,
+
+    // Class fields must be definitely assigned in the constructor, otherwise
+    // they would silently be `undefined` at runtime.
+    "strictPropertyInitialization": true,
+
+    // `this` inside a free-floating function is an error rather than `any`.
+    "noImplicitThis": true,
+
+    // A parameter with no annotation and no inferable type is an error instead
+    // of silently becoming `any` (an `any` is a hole in the proof).
+    "noImplicitAny": true,
+
+    // `catch (e)` gives `unknown`, not `any`: you must *prove* what you caught
+    // before using it. Errors are values, and values have types.
+    "useUnknownInCatchVariables": true,
+
+    // Only `let`/`const`/`class` are hoist-checked in the TDZ sense; this flag
+    // makes `use-before-declaration` an error in more positions.
+    "alwaysStrict": true,
+
+    // ---------------------------------------------------------------------
+    // 3. BEYOND `strict` — flags that close specific unsoundness holes.
+    //    These are NOT part of `strict`; each is opt-in.
+    // ---------------------------------------------------------------------
+
+    // `arr[i]` is typed `T | undefined` instead of `T`. Array indexing is
+    // unsound by default in TypeScript (see 04-expert/12-soundness-holes):
+    // the compiler cannot know that index `i` is in range. This flag makes the
+    // compiler admit its own ignorance instead of lying to you.
+    "noUncheckedIndexedAccess": true,
+
+    // `override` must be written explicitly when overriding a base member,
+    // so a renamed base method cannot silently orphan a subclass method.
+    "noImplicitOverride": true,
+
+    // Every code path of a function with a declared return type must return.
+    "noImplicitReturns": true,
+
+    // Accidental `switch` fall-through becomes an error.
+    "noFallthroughCasesInSwitch": true,
+
+    // Optional properties are written with `?` only; `{ a?: number }` cannot be
+    // satisfied by `{ a: undefined }`. Distinguishes "missing" from "present
+    // and undefined" — two states JSON conflates and JavaScript ignores.
+    "exactOptionalPropertyTypes": true,
+
+    // Property access through an index signature must use bracket notation,
+    // making "this key may not exist" visible at the call site.
+    "noPropertyAccessFromIndexSignature": true,
+
+    // ---------------------------------------------------------------------
+    // 4. SYNTAX / EMIT DISCIPLINE
+    // ---------------------------------------------------------------------
+
+    // Rejects TypeScript syntax that is NOT pure type annotation — `enum`,
+    // `namespace`, constructor parameter properties. In other words: it
+    // guarantees that compilation is *nothing but erasure*. This flag is the
+    // executable definition of the phrase "types have no runtime existence".
+    "erasableSyntaxOnly": true,
+
+    // `import { type Foo }` must be written as such; the emitter never has to
+    // guess whether an import was a value or a type.
+    "verbatimModuleSyntax": true,
+
+    // Every file must be compilable on its own (no cross-file const-enum
+    // inlining). Matches how bundlers and single-file transpilers behave.
+    "isolatedModules": true,
+
+    // Case-sensitivity of file names is enforced, so a build that works on
+    // macOS does not break on Linux CI.
+    "forceConsistentCasingInFileNames": true,
+
+    "skipLibCheck": true
+
+    // ---------------------------------------------------------------------
+    // 5. DELIBERATELY *NOT* ENABLED
+    //
+    //   "noUnusedLocals" / "noUnusedParameters":
+    //     Several demos declare proof-only type aliases such as
+    //         type _Proof = Expect<Equals<typeof value, string>>;
+    //     whose whole purpose is to exist and type-check. `noUnusedLocals`
+    //     reports those as TS6133 ("declared but never used"). In production
+    //     code you should turn both on; here they would delete the evidence.
+    // ---------------------------------------------------------------------
+  },
+
+  "include": ["src/**/*.ts"],
+
+  // `*.tsc-error.ts` files are the *evidence lab*: they contain real,
+  // unsuppressed type errors on purpose, so that `npm run evidence` can print
+  // the genuine `tsc` output (message + TSxxxx code). They are excluded here
+  // so that `npm run build` stays green and every demo remains executable.
+  // They are compiled by tsconfig.evidence.json instead.
+  "exclude": ["src/**/*.tsc-error.ts", "dist", "node_modules"]
+}
