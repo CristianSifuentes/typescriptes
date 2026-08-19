@@ -1,0 +1,36 @@
+{
+  "name": "point-06-argument-order",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Concept #6 - Arguments passed in the wrong order: caught by positional type checking, and made impossible by branded types.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "evidence": "node scripts/evidence.mjs",
+    "erasure": "npm run build -s && node dist/00-foundations/brand-erasure.demo.js",
+    "demo:all": "npm run build -s && node dist/99-runner/run-all.js",
+    "demo:01-swapped-arguments": "npm run build -s && node dist/99-runner/run.js 01-swapped-arguments",
+    "demo:02-positional-binding": "npm run build -s && node dist/99-runner/run.js 02-positional-binding",
+    "demo:03-corruption-modes": "npm run build -s && node dist/99-runner/run.js 03-corruption-modes",
+    "demo:04-same-type-numbers": "npm run build -s && node dist/99-runner/run.js 04-same-type-numbers",
+    "demo:05-same-type-strings": "npm run build -s && node dist/99-runner/run.js 05-same-type-strings",
+    "demo:06-boolean-flags": "npm run build -s && node dist/99-runner/run.js 06-boolean-flags",
+    "demo:07-branded-types": "npm run build -s && node dist/99-runner/run.js 07-branded-types",
+    "demo:08-options-objects": "npm run build -s && node dist/99-runner/run.js 08-options-objects",
+    "demo:09-labeled-tuples": "npm run build -s && node dist/99-runner/run.js 09-labeled-tuples",
+    "demo:10-builder-pattern": "npm run build -s && node dist/99-runner/run.js 10-builder-pattern",
+    "demo:11-positional-assignability": "npm run build -s && node dist/99-runner/run.js 11-positional-assignability",
+    "demo:12-brand-toolkit": "npm run build -s && node dist/99-runner/run.js 12-brand-toolkit",
+    "demo:13-soundness-holes": "npm run build -s && node dist/99-runner/run.js 13-soundness-holes",
+    "demo:14-design-tradeoffs": "npm run build -s && node dist/99-runner/run.js 14-design-tradeoffs"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "typescript": "^7.0.2"
+  }
+}

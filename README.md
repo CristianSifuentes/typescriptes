@@ -26,7 +26,7 @@ Every point is built to the same standard:
 | **Points** | 29 |
 | **Levels** | 7 |
 | **Format** | one npm project per point, one branch per point |
-| **Progress** | 5 / 29 complete |
+| **Progress** | 6 / 29 complete |
 
 ```bash
 cd point-01-type-errors
@@ -96,7 +96,7 @@ branch** where the example lives, and its **status**.
 | 03 | Typos in property names | Autocomplete and verification of the object's shape | [`point-03-property-typos`](./point-03-property-typos/) · `features/three` | **complete** — 16 demos, 4 levels, evidence lab |
 | 04 | `undefined is not a function` | Verification that the method exists before it is called | [`point-04-not-a-function`](./point-04-not-a-function/) · `features/four` | **complete** — 17 demos, 4 levels, evidence lab |
 | 05 | Too many or too few function parameters | Mandatory function signatures | [`point-05-parameter-arity`](./point-05-parameter-arity/) · `features/five` | **complete** — 17 demos, 4 levels, evidence lab |
-| 06 | Arguments passed in the wrong order | Distinct types per position | `point-06-argument-order` · `feature/point-06-argument-order` | planned |
+| 06 | Arguments passed in the wrong order | Distinct types per position | [`point-06-argument-order`](./point-06-argument-order/) · `feature/point-06-argument-order` | **complete** — 14 demos, 4 levels, evidence lab |
 
 ### Level 2 — Structure and contracts
 
